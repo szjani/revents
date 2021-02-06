@@ -17,6 +17,7 @@ import java.lang.annotation.Target;
  *
  * <p>
  *     In this example the {@code Order} instance will be bound to stream "order-123";
+ * </p>
  * <pre>
  *     class Order {
  *
@@ -26,7 +27,6 @@ import java.lang.annotation.Target;
  *         }
  *     }
  * </pre>
- * </p>
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
