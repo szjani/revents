@@ -55,6 +55,7 @@ public interface CommandContext {
      *
      * @param event the event
      * @param <T> type of the event
+     * @return this instance
      */
     @CanIgnoreReturnValue
     default <T> CommandContext apply(T event) {

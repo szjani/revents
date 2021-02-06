@@ -54,6 +54,7 @@ public interface SnapshotStrategy {
      * if at least {@code count} number of events stored since the creation
      * of the last snapshot.
      *
+     * @param count expected number of events between snapshots
      * @return a new strategy instance
      */
     static SnapshotStrategy every(long count) {
@@ -72,6 +73,7 @@ public interface SnapshotStrategy {
      * if at least {@code duration} time spent since the creation
      * of the last snapshot.
      *
+     * @param duration expected duration between snapshots
      * @return a new strategy instance
      */
     static SnapshotStrategy every(Duration duration) {
