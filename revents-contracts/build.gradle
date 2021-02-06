@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+    id 'revents.java-conventions'
+}
+
+dependencies {
+    implementation project(':revents-api')
+    testImplementation project(':revents-test')
+    implementation(platform('org.junit:junit-bom'))
+    implementation "org.junit.jupiter:junit-jupiter"
+    implementation "io.projectreactor:reactor-test"
+    implementation "org.assertj:assertj-core"
+}

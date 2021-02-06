@@ -1,0 +1,21 @@
+plugins {
+    id 'revents.java-conventions'
+}
+
+dependencies {
+    annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor:2.4.1"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:2.4.1"
+    api project(':revents-api')
+    implementation project(':revents-core')
+    implementation project(':revents-r2dbc')
+    implementation project(':revents-mongo')
+    implementation "org.springframework.boot:spring-boot-starter"
+    testImplementation "io.r2dbc:r2dbc-h2"
+    testImplementation testFixtures(project(":revents-r2dbc"))
+    testImplementation testFixtures(project(":revents-mongo"))
+}
+
+revents_jacoco {
+    jacoco_integration_test_line_coverage_minimum = 0.81
+    jacoco_aggregate_test_line_coverage_minimum = 0.81
+}

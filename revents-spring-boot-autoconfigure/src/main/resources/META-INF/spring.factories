@@ -1,0 +1,9 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.revents.springboot.autoconfig.ReventsDefaultCommandBusAutoconfiguration,\
+com.revents.springboot.autoconfig.ReventsDefaultEventStoreAutoconfiguration,\
+com.revents.springboot.autoconfig.ReventsDefaultSerializerAutoconfiguration,\
+com.revents.springboot.autoconfig.ReventsDefaultSnapshotRepositoryAutoconfiguration,\
+com.revents.springboot.autoconfig.ReventsDefaultTokenStoreAutoconfiguration,\
+com.revents.springboot.autoconfig.ReventsMongoTokenStoreAutoconfiguration,\
+com.revents.springboot.autoconfig.ReventsSpringR2dbcAutoconfigure,\
+com.revents.springboot.autoconfig.ReventsDefaultEventProcessorAutoconfiguration

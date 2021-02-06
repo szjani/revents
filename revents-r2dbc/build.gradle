@@ -1,0 +1,20 @@
+plugins {
+    id 'revents.java-conventions'
+}
+
+dependencies {
+    api project(':revents-api')
+    api project(':revents-core')
+    api "org.springframework:spring-r2dbc"
+    testImplementation project(':revents-contracts')
+    testFixturesImplementation project(':revents-contracts')
+    runtimeOnly "com.h2database:h2:1.4.200"
+    testImplementation "io.r2dbc:r2dbc-h2:0.8.4.RELEASE"
+    testFixturesImplementation "io.r2dbc:r2dbc-h2:0.8.4.RELEASE"
+    testFixturesImplementation "org.springframework:spring-r2dbc"
+}
+
+revents_jacoco {
+    jacoco_integration_test_line_coverage_minimum = 0.91
+    jacoco_aggregate_test_line_coverage_minimum = 0.91
+}

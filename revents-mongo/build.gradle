@@ -1,0 +1,17 @@
+plugins {
+    id 'revents.java-conventions'
+}
+
+dependencies {
+    api project(':revents-api')
+    api project(':revents-core')
+    api 'org.mongodb:mongodb-driver-reactivestreams:4.0.5'
+    testImplementation project(':revents-contracts')
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.0.0'
+    testFixturesImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.0.0'
+}
+
+revents_jacoco {
+    jacoco_integration_test_line_coverage_minimum = 0.94
+    jacoco_aggregate_test_line_coverage_minimum = 0.94
+}

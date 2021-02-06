@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_LEVEL_PATTERN" value="cid:%X{cid} eid:%X{eid} %5p" />
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <logger name="com.revents" level="DEBUG" />
+    <logger name="org.springframework.r2dbc.connection.init.ScriptUtils" level="DEBUG" />
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>

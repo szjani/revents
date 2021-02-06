@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+    id 'revents.java-conventions'
+}
+
+dependencies {
+    api project(':revents-api')
+    implementation project(':revents-core')
+    testImplementation project(':revents-contracts')
+    implementation(platform('org.junit:junit-bom'))
+    implementation "org.junit.jupiter:junit-jupiter"
+    implementation "io.projectreactor:reactor-test"
+    implementation "org.assertj:assertj-core"
+}
+
+revents_jacoco {
+    jacoco_unit_test_line_coverage_minimum = 0.93
+    jacoco_aggregate_test_line_coverage_minimum = 0.93
+}

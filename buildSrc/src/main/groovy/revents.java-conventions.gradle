@@ -1,0 +1,177 @@
+plugins {
+    id "io.spring.dependency-management"
+    id 'java-test-fixtures'
+    id 'java-library'
+    id 'idea'
+    id 'jacoco'
+    id 'checkstyle'
+    id 'pmd'
+    id 'maven-publish'
+}
+
+group = "com.revents"
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.boot:spring-boot-dependencies:2.4.1'
+        mavenBom 'io.projectreactor:reactor-bom:2020.0.2'
+        mavenBom 'com.expediagroup.molten:molten-bom:1.0.0'
+    }
+}
+
+dependencies {
+    def immutablesVersion = "2.8.8"
+    api "io.projectreactor:reactor-core"
+    api "org.slf4j:slf4j-api"
+    annotationProcessor "org.immutables:value:$immutablesVersion"
+    testAnnotationProcessor "org.immutables:value:$immutablesVersion"
+    compileOnly "org.immutables:value-annotations:$immutablesVersion"
+    implementation "org.immutables:value-annotations:$immutablesVersion"
+    implementation "com.fasterxml.jackson.core:jackson-databind"
+    implementation "com.google.guava:guava:30.0-jre"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testImplementation "io.projectreactor:reactor-test"
+    testImplementation "org.assertj:assertj-core"
+    testImplementation "org.mockito:mockito-core"
+    testImplementation "org.mockito:mockito-junit-jupiter"
+    testFixturesImplementation "org.springframework.boot:spring-boot-starter-test"
+    testFixturesImplementation "org.springframework:spring-context"
+}
+
+class ReventsJacocoCoverageCheckPluginExtension {
+    BigDecimal jacoco_unit_test_line_coverage_minimum = 1.00
+    BigDecimal jacoco_integration_test_line_coverage_minimum = 1.00
+    BigDecimal jacoco_aggregate_test_line_coverage_minimum = 1.00
+}
+
+def extension = extensions.create('revents_jacoco', ReventsJacocoCoverageCheckPluginExtension)
+
+pmd {
+    consoleOutput = true
+    toolVersion = "6.30.0"
+    rulePriority = 5
+    ruleSetFiles = files("${rootProject.projectDir}/config/pmd/ruleset.xml")
+    ruleSets = []
+}
+
+def unitTest = tasks.register("unitTest", Test) {
+    useJUnitPlatform()
+    include "**/*Test.class"
+    dependsOn compileTestJava
+}
+
+def integrationTest = tasks.register("integrationTest", Test) {
+    useJUnitPlatform()
+    include "**/*IT.class"
+    dependsOn compileTestJava
+    shouldRunAfter unitTest
+}
+
+def test = tasks.named("test").configure {
+    exclude '**' // exclude all to leave testing to tasks unitTest & integrationTest
+    dependsOn unitTest, integrationTest
+}
+
+def unitTestCoverageReport = tasks.register("unitTestCoverageReport", JacocoReport) {
+    it.executionData(fileTree(buildDir).include("/jacoco/unitTest.exec"))
+    sourceSets sourceSets.main
+    dependsOn unitTest
+}
+
+def integrationTestCoverageReport = tasks.register("integrationTestCoverageReport", JacocoReport) {
+    it.executionData(fileTree(buildDir).include("/jacoco/integrationTest.exec"))
+    sourceSets sourceSets.main
+    dependsOn integrationTest
+}
+
+def aggregatedTestCoverageReport = tasks.register("aggregatedTestCoverageReport", JacocoReport) {
+    it.executionData(fileTree(buildDir).include("/jacoco/unitTest.exec").include("/jacoco/integrationTest.exec"))
+    sourceSets sourceSets.main
+    dependsOn unitTest, integrationTest
+}
+
+def unitTestCoverageCheck = tasks.register("unitTestCoverageCheck", JacocoCoverageVerification) {
+    dependsOn unitTestCoverageReport
+    it.executionData(fileTree(buildDir).include("/jacoco/unitTest.exec"))
+    sourceSets sourceSets.main
+    violationRules {
+        rule {
+            element 'BUNDLE'
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = extension.jacoco_unit_test_line_coverage_minimum
+            }
+        }
+    }
+}
+
+def integrationTestCoverageCheck = tasks.register("integrationTestCoverageCheck", JacocoCoverageVerification) {
+    dependsOn integrationTestCoverageReport
+    it.executionData(fileTree(buildDir).include("/jacoco/integrationTest.exec"))
+    sourceSets sourceSets.main
+    violationRules {
+        rule {
+            element 'BUNDLE'
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = extension.jacoco_integration_test_line_coverage_minimum
+            }
+        }
+    }
+}
+
+def aggregateTestCoverageCheck = tasks.register("aggregateTestCoverageCheck", JacocoCoverageVerification) {
+    dependsOn aggregatedTestCoverageReport
+    it.executionData(fileTree(buildDir).include("/jacoco/unitTest.exec").include("/jacoco/integrationTest.exec"))
+    sourceSets sourceSets.main
+    violationRules {
+        rule {
+            element 'BUNDLE'
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = extension.jacoco_aggregate_test_line_coverage_minimum
+            }
+        }
+    }
+}
+
+tasks.named("check") {
+    dependsOn unitTestCoverageCheck, integrationTestCoverageCheck, aggregateTestCoverageCheck
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}

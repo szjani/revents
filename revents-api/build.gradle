@@ -1,0 +1,8 @@
+plugins {
+    id 'revents.java-conventions'
+}
+
+revents_jacoco {
+    jacoco_unit_test_line_coverage_minimum = 0.18
+    jacoco_aggregate_test_line_coverage_minimum = 0.18
+}

@@ -1,0 +1,22 @@
+plugins {
+    id 'revents.java-conventions'
+}
+
+dependencies {
+    implementation project(':revents-api')
+    testImplementation project(':revents-contracts')
+    implementation 'com.expediagroup.molten:molten-cache'
+    implementation "org.reflections:reflections:0.9.12"
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-guava"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jdk8"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    implementation "com.fasterxml.jackson.module:jackson-module-parameter-names"
+    testImplementation 'org.hibernate:hibernate-validator-test-utils:5.4.3.Final'
+}
+
+revents_jacoco {
+    jacoco_unit_test_line_coverage_minimum = 0.35
+    jacoco_integration_test_line_coverage_minimum = 0.68
+    jacoco_aggregate_test_line_coverage_minimum = 0.83
+}
