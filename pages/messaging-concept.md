@@ -50,3 +50,7 @@ public interface ApproveOrder {
     Long version();
 }
 ```
+
+### Events
+
+Just like commands, events are also wrapped. In this case `EventMessage` is used for this purpose. There is no restriction for the payload (event), using immutability is encouraged.
