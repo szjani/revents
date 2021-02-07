@@ -33,4 +33,5 @@ Its main features:
 
  - [Messaging concept](messaging-concept)
  - [Aggregates](aggregates)
+ - [Event handlers](event-handlers)
  - [Configuration](configuration) 
