@@ -33,6 +33,9 @@ public class Order {
 
     private OrderState orderState;
 
+    private Order() {
+    }
+
     @CommandHandler
     public Order(CreateOrder createOrder, CommandContext commandContext) {
         commandContext
