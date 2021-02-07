@@ -1,3 +1,8 @@
+---
+layout: page
+title: Revents manual
+---
+
 ## Introduction
 
 Welcome to the Revents manual!
