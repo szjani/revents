@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "Messaging concept"
 permalink: /messaging-concept/
 ---
