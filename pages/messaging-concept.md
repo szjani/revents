@@ -6,6 +6,8 @@ permalink: /messaging-concept/
 
 ## Messaging concept
 
+{:toc}
+
 Each Revents message must implement the `Message` interface, which encapsulates the actual payload and the meta information.
 The meta information contains a unique message ID, the time when the message was created, and an optional aggregate revision field.
 

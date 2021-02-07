@@ -6,6 +6,8 @@ permalink: /aggregates/
 
 ## Aggregates
 
+{:toc}
+
 ### Command handlers
 
 Command handlers are public methods/constructors on aggregates. There must be no return value and there are two parameters: the first is the command itself, the second is a `CommandContext` object.
