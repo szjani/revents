@@ -65,8 +65,10 @@ Revents allows to request a new command dispatch from a command handler.
 @CommandHandler
 public void handle(CloseRegistration closeRegistration, CommandContext context) {
     checkSessionIsNotClosed();
-    context.request(new CalculateFinalStatistics(closeRegistration.getSessionId()));
+    context
+        .apply(new RegistrationClosed(closeRegistration.getSessionId()))
+        .request(new CalculateFinalStatistics(closeRegistration.getSessionId()));
 }
 ```
 
-It is important that the dispatching process of the requested command will be started only once the current one is done. Technically it is very similar to the first approach above with the difference that the command is requested by and aggregate instead of the controller layer.
+It is important that the dispatching process of the requested command will be started only once the current one is done. Technically it is very similar to the second approach above with the difference that the command is requested by and aggregate instead of the controller layer.
