@@ -6,6 +6,7 @@ permalink: /aggregates/
 
 ## Aggregates
 
+1. The generated Toc will be an ordered list
 {:toc}
 
 ### Command handlers
