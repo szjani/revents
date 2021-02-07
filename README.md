@@ -5,7 +5,7 @@
 Revents is an event sourcing framework built on [Project Reactor](https://projectreactor.io/). The codebase is under
 heavy development, not production ready yet!
 
-More detailed documentation and published artifacts are expected in the near future. 
+Github pages documentation: https://szjani.github.io/revents/
 
 ## Build
 
