@@ -4,7 +4,7 @@ title: "Aggregates"
 permalink: /aggregates/
 ---
 
-{% include breadcrumbs.html %}
+{% include breadcrumbs %}
 
 ## Aggregates
 {:.no_toc}
