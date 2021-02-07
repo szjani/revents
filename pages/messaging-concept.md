@@ -4,6 +4,8 @@ title: "Messaging concept"
 permalink: /messaging-concept/
 ---
 
+{% include breadcrumbs.html %}
+
 ## Messaging concept
 {:.no_toc}
 
