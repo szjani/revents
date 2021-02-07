@@ -5,8 +5,9 @@ permalink: /aggregates/
 ---
 
 ## Aggregates
+{:.no_toc}
 
-1. The generated Toc will be an ordered list
+* Toc
 {:toc}
 
 ### Command handlers

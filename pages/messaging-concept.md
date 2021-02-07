@@ -5,8 +5,9 @@ permalink: /messaging-concept/
 ---
 
 ## Messaging concept
+{:.no_toc}
 
-1. The generated Toc will be an ordered list
+* Toc
 {:toc}
 
 Each Revents message must implement the `Message` interface, which encapsulates the actual payload and the meta information.
