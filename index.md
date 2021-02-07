@@ -12,3 +12,5 @@ Revents is framework built upon [Reactor](https://projectreactor.io/) to help cr
 ## Manual
 
  - [Messaging concept](messaging-concept)
+ - [Aggregates](aggregates)
+ 
