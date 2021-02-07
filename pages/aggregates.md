@@ -65,5 +65,4 @@ public void handle(CloseRegistration closeRegistration, CommandContext context) 
 }
 ```
 
-It is important that the dispatching process of the requested command will be started only once the current one is done. Technically it is very similar to the first approach above
-with the difference that the command is requested by and aggregate instead of the controller layer.
+It is important that the dispatching process of the requested command will be started only once the current one is done. Technically it is very similar to the first approach above with the difference that the command is requested by and aggregate instead of the controller layer.
