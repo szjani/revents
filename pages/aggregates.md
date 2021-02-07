@@ -38,6 +38,7 @@ public class Order {
 
     @CommandHandler
     public Order(CreateOrder createOrder, CommandContext commandContext) {
+        OrderId orderId = OrderId.create();
         commandContext
             .registerAggregateId(Order.class, orderId.asString())
             .apply(new OrderCreated(orderId));
