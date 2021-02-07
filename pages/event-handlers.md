@@ -28,7 +28,7 @@ Spring bean. The event processor, attached the handler object to, can be defined
 public class EmailSender {
 
     @EventHandler
-    public Mono<Void> handle(UserRegistrationRequested event) {
+    public Mono<Void> handle(UserRegistrationRequested event, EventContext context) {
         return mailService.sendRegistrationMail(event.getUserId(), event.getEmail(), event.getUsername());
     }
 }
