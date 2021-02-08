@@ -1,5 +1,6 @@
 package com.revents;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.immutables.value.Value;
 
@@ -11,6 +12,7 @@ public interface Message<I extends Message.MessageId, P, M extends Message.MetaD
 
     M metaData();
 
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
     P payload();
 
     interface MessageId {
