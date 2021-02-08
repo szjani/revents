@@ -35,3 +35,4 @@ Its main features:
  - [Aggregates](aggregates)
  - [Event handlers](event-handlers)
  - [Configuration](configuration) 
+ - [Testing](testing)
