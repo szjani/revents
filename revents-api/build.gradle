@@ -2,6 +2,13 @@ plugins {
     id 'revents.java-conventions'
 }
 
+dependencies {
+    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-guava"
+    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jdk8"
+    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    testImplementation "com.fasterxml.jackson.module:jackson-module-parameter-names"
+}
+
 revents_jacoco {
     jacoco_unit_test_line_coverage_minimum = 0.18
     jacoco_aggregate_test_line_coverage_minimum = 0.18
