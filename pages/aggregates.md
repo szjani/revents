@@ -20,6 +20,22 @@ Aggregate classes need to be annotated with `@Aggregate` annotation if we are re
 
 All parameter and state validation must be executed in command handlers.
 
+#### Emitting an event
+
+Events 'emitted' by the command handlers are actually gathered in the `CommandContext`. Muliple events can be emitted from a command handler,
+calling `CommandContext#apply` does the job.
+
+#### Registering the ID of a new aggregate
+
+Generating an aggregate id for a new aggregate instance can be done in the aggregate's constructor. However Revents need to be notified about it.
+The aggregate class and the new ID can be registered via `CommandContext#registerAggregateId` methods.
+
+#### Time management
+
+It is common requirement to be able to generate date and time in command handlers. It is really important to use the result of
+the `CommandContext#clock` method in such situation. If using other than the default clock is needed,
+it can be globally overridden via `ReventsClock#overrideSystemClock`.
+
 ### Event handlers
 
 Event handlers in aggregates are used in the replay process. In order to dispatch a command, the framework reads all the events for the targeted aggregate and replays them.
