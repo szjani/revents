@@ -1,10 +1,10 @@
 package com.revents.cqrs;
 
-import static com.revents.cache.ReactiveExtendedCache.inMemoryCache;
 import static com.revents.log.TransformContextToMdc.fluxLogOnSubscribe;
 
 import com.revents.ExpectedRevision;
 import com.revents.NotFollowedReventsConventionException;
+import com.revents.cache.ClassValueBasedReactiveCache;
 import com.revents.cache.ReactiveExtendedCache;
 import org.reflections.ReflectionUtils;
 import org.slf4j.Logger;
@@ -26,7 +26,8 @@ public interface CommandRevisionResolver {
 
         private static final Logger LOG = LoggerFactory.getLogger(AnnotationBased.class);
 
-        private final ReactiveExtendedCache<Class<?>, List<Method>> revisionMethodCache = inMemoryCache();
+        private final ReactiveExtendedCache<Class<?>, List<Method>> revisionMethodCache =
+            ReactiveExtendedCache.cacheOver(new ClassValueBasedReactiveCache<>());
 
         @SuppressWarnings("unchecked")
         @Override
