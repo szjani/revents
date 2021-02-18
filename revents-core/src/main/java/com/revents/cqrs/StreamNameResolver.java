@@ -1,6 +1,5 @@
 package com.revents.cqrs;
 
-import static com.revents.cache.ReactiveExtendedCache.inMemoryCache;
 import static com.revents.log.TransformContextToMdc.fluxLogOnNext;
 import static org.reflections.ReflectionUtils.getAllAnnotations;
 import static org.reflections.ReflectionUtils.getAllMethods;
@@ -11,6 +10,7 @@ import com.revents.DynamicStream;
 import com.revents.FixStream;
 import com.revents.NotFollowedReventsConventionException;
 import com.revents.StreamName;
+import com.revents.cache.ClassValueBasedReactiveCache;
 import com.revents.cache.ReactiveExtendedCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,10 +32,11 @@ public interface StreamNameResolver {
 
         private static final Logger LOG = LoggerFactory.getLogger(AnnotationBased.class);
 
-        private final ReactiveExtendedCache<Class<?>, List<String>> fixStreamCache = inMemoryCache();
+        private final ReactiveExtendedCache<Class<?>, List<String>> fixStreamCache =
+            ReactiveExtendedCache.cacheOver(new ClassValueBasedReactiveCache<>());
 
         private final ReactiveExtendedCache<Class<?>, List<Tuple2<Method, List<String>>>> dynamicStreamCache =
-            inMemoryCache();
+            ReactiveExtendedCache.cacheOver(new ClassValueBasedReactiveCache<>());
 
         @SuppressWarnings("unchecked")
         @Override

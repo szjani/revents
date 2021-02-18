@@ -16,6 +16,7 @@ import com.revents.CommandResult;
 import com.revents.MessageHandler;
 import com.revents.NotFollowedReventsConventionException;
 import com.revents.TargetAggregate;
+import com.revents.cache.ClassValueBasedReactiveCache;
 import com.revents.cache.ReactiveExtendedCache;
 import org.immutables.value.Value;
 import org.reflections.ReflectionUtils;
@@ -46,10 +47,10 @@ public class AnnotationAwareCommandMessageDispatcher implements
 
     @SuppressWarnings("checkstyle:linelength")
     private final ReactiveExtendedCache<Class<?>, List<ReflectionBasedMessageHandler<CommandMessage<?>, CommandResult>>> handlerCache =
-        ReactiveExtendedCache.inMemoryCache();
+        ReactiveExtendedCache.cacheOver(new ClassValueBasedReactiveCache<>());
 
     private final ReactiveExtendedCache<Class<?>, List<Method>> targetAggregateCache =
-        ReactiveExtendedCache.inMemoryCache();
+        ReactiveExtendedCache.cacheOver(new ClassValueBasedReactiveCache<>());
 
     public static AnnotationAwareCommandMessageDispatcher create(
         UnaryOperator<AnnotationAwareCommandMessageDispatcherConfig.Builder> init) {

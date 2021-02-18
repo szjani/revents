@@ -7,6 +7,7 @@ import com.revents.EventMessage;
 import com.revents.MessageHandler;
 import com.revents.MessageInterceptor;
 import com.revents.MessageInterceptorChain;
+import com.revents.cache.ClassValueBasedReactiveCache;
 import com.revents.cache.ReactiveExtendedCache;
 import org.immutables.value.Value;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class AnnotationAwareEventMessageDispatcher implements MessageHandler<Eve
 
     @SuppressWarnings("checkstyle:linelength")
     private final ReactiveExtendedCache<Class<?>, List<ReflectionBasedMessageHandler<EventMessage<?>, Void>>> handlerCache =
-        ReactiveExtendedCache.inMemoryCache();
+        ReactiveExtendedCache.cacheOver(new ClassValueBasedReactiveCache<>());
 
     private final List<MessageInterceptor<EventMessage<?>, Void>> eventHandlerInterceptors;
 
