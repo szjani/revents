@@ -6,6 +6,7 @@ import org.immutables.value.Value;
 
 import java.time.Clock;
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.OptionalLong;
 
 public interface Message<I extends Message.MessageId, P, M extends Message.MetaData<I>> {
@@ -28,7 +29,7 @@ public interface Message<I extends Message.MessageId, P, M extends Message.MetaD
 
         @Value.Default
         default OffsetDateTime created() {
-            return OffsetDateTime.now(ReventsClock.system());
+            return OffsetDateTime.now(ReventsClock.system()).truncatedTo(ChronoUnit.MILLIS);
         }
 
         OptionalLong revision();

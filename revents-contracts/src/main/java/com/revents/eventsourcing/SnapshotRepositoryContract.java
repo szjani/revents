@@ -2,7 +2,6 @@ package com.revents.eventsourcing;
 
 import com.revents.AggregateId;
 import com.revents.EventMessage.EventId;
-import com.revents.ReventsClock;
 import com.revents.TestAggregate1;
 import com.revents.eventsourcing.SnapshotRepository.Snapshot;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Hooks;
 import reactor.test.StepVerifier;
 
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public abstract class SnapshotRepositoryContract {
@@ -31,7 +29,6 @@ public abstract class SnapshotRepositoryContract {
             .aggregateId(aggregateId)
             .aggregate(TestAggregate1.createForSnapshotTest(aggregatePayload))
             .revision(revision)
-            .created(OffsetDateTime.now(ReventsClock.system()))
             .basedOnEvent(EventId.create())
             .build();
     }

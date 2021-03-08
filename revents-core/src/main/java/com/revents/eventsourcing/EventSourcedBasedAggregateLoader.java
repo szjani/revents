@@ -17,7 +17,6 @@ import reactor.util.function.Tuple2;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.time.Clock;
-import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.OptionalLong;
 import java.util.function.UnaryOperator;
@@ -69,7 +68,6 @@ public class EventSourcedBasedAggregateLoader implements AggregateLoader {
                         .revision(tuple.getT1().metaData().revision().orElseThrow(() ->
                             new IllegalStateException("Revision is missing from a persisted event " + tuple.getT1())))
                         .basedOnEvent(tuple.getT1().metaData().id())
-                        .created(OffsetDateTime.now(clock))
                         .build())
                         .subscribeOn(Schedulers.parallel()))))
             .as(ReventsClock.fluxContextualClock());
